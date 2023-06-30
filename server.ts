@@ -22,12 +22,12 @@ app.listen(ENVIRONMENTS.SERVER.PORT, () => {
   console.log(`Server name: ${ENVIRONMENTS.SERVER.NAME}`);
   console.log(`Server runnin on port: ${ENVIRONMENTS.SERVER.PORT}`);
   console.log(`Server version: ${ENVIRONMENTS.SERVER.API_VERSION}`);
-  console.log('Loading configuration...');
-  
+  console.log("Loading configuration...");
+
   app.use(
     `/${ENVIRONMENTS.SERVER.NAME}/${ENVIRONMENTS.SERVER.API_VERSION}`,
     indexRoutes
   );
-  
-  console.log('Server Ready 🔥');
+
+  console.log("Server Ready 🔥");
 });
