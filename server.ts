@@ -5,6 +5,8 @@ import morgan from "morgan";
 import helmet from "helmet";
 
 import { ENVIRONMENTS } from "./config/index.config";
+import { indexRoutes } from "./src/infraestructure/http/routes/index.route";
+import { dbConnection } from ".//config/db.config";
 
 const stage = "dev";
 
@@ -16,9 +18,7 @@ app.use(cors());
 app.use(morgan(stage));
 app.use(helmet());
 
-import { indexRoutes } from "./src/infraestructure/http/routes/index.route";
-
-app.listen(ENVIRONMENTS.SERVER.PORT, () => {
+app.listen(ENVIRONMENTS.SERVER.PORT, async () => {
   console.log(`Server name: ${ENVIRONMENTS.SERVER.NAME}`);
   console.log(`Server runnin on port: ${ENVIRONMENTS.SERVER.PORT}`);
   console.log(`Server version: ${ENVIRONMENTS.SERVER.API_VERSION}`);
@@ -29,5 +29,7 @@ app.listen(ENVIRONMENTS.SERVER.PORT, () => {
     indexRoutes
   );
 
-  console.log("Server Ready 🔥");
+  await dbConnection.connect();
+
+  console.log("Server Ready 🔥.");
 });

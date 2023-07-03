@@ -8,4 +8,7 @@ export const ENVIRONMENTS = {
     API_VERSION: process.env.SERVER_API_VERSION,
     NAME: process.env.SERVER_NAME,
   },
+  DB: {
+    URL: process.env.DB_URI,
+  },
 };
