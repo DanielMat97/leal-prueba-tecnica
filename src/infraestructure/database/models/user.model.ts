@@ -1,4 +1,4 @@
-import { prop, getModelForClass, Ref } from "@typegoose/typegoose";
+import { prop, getModelForClass } from "@typegoose/typegoose";
 
 import { LealPoints } from "./leal_points.model";
 import { CashBack } from "./cashback.model";
@@ -9,17 +9,17 @@ export class User {
   @prop({ required: true, trim: true })
   name: string;
 
-  @prop({ default: null, required: false })
-  leal_points: Ref<LealPoints | null>;
+  @prop({ default: null, required: false, type: () => LealPoints })
+  leal_points: LealPoints | null;
 
-  @prop({ default: null, required: false })
-  cashback: Ref<CashBack | null>;
+  @prop({ default: null, required: false, type: () => CashBack })
+  cashback: CashBack | null;
 
-  @prop({ default: null, required: false })
-  leal_points_history: Ref<LealPointsHistory | null>[];
+  @prop({ default: null, required: false, type: () => [LealPointsHistory] })
+  leal_points_history: LealPointsHistory[] | null;
 
-  @prop({ default: null, required: false })
-  cashback_history: Ref<CashBackHistory | null>[];
+  @prop({ default: null, required: false, type: () => [CashBackHistory] })
+  cashback_history: CashBackHistory[] | null;
 }
 
 const schemaOptions = {

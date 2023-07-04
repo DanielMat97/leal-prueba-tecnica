@@ -1,4 +1,4 @@
-import { prop, getModelForClass, Ref } from "@typegoose/typegoose";
+import { prop, getModelForClass } from "@typegoose/typegoose";
 import { Campaing } from "./campaing.model";
 
 export class BranchOffice {
@@ -8,8 +8,8 @@ export class BranchOffice {
   @prop({ required: true, trim: true })
   name: string;
 
-  @prop({ required: false, default: null })
-  campaing: Ref<Campaing>;
+  @prop({ required: false, default: null, type: () => Campaing })
+  campaing: Campaing;
 }
 
 const schemaOptions = {
