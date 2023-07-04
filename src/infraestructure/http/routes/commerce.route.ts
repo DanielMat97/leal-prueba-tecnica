@@ -9,6 +9,10 @@ commerceRoute
     "/commerce/branch",
     commerceController.createBranch.bind(commerceController)
   )
+  .post(
+    "/commerce/branch/campaing",
+    commerceController.createCampaing.bind(commerceController)
+  )
   .get("/commerce", commerceController.getAllCommerces.bind(commerceController))
   .get(
     "/commerce/:id",

@@ -66,9 +66,6 @@ export class CommerceController {
   async createBranch(req: Request, res: Response) {
     const { id_commerce, name } = req.body;
 
-    console.log(!id_commerce);
-    console.log(!name);
-
     if (!id_commerce) {
       return res.status(400).json({
         status: 400,
@@ -102,9 +99,7 @@ export class CommerceController {
     const { id } = req.params;
 
     try {
-      const offices = await this.commerceApplication.findBranchOfficeById(
-        id
-      );
+      const offices = await this.commerceApplication.findBranchOfficeById(id);
 
       if (!offices) {
         return res.status(404).json({
@@ -113,11 +108,67 @@ export class CommerceController {
         });
       }
 
-      const branchOffice = offices.branchOffice.map(office => office)[0];
+      const branchOffice = offices.branchOffice.map((office) => office)[0];
 
       return res.status(200).json({
         status: 200,
         branchOffice,
+      });
+    } catch (error) {
+      return handlerError(error, 500, res);
+    }
+  }
+
+  async createCampaing(req: Request, res: Response) {
+    const { id_branch_office, type, start_date, end_date, detail } = req.body;
+
+    if (!id_branch_office) {
+      return res.status(400).json({
+        status: 400,
+        reason: "ID_BRANCH_OFFICE_NOT_FOUND",
+      });
+    }
+
+    if (!type) {
+      return res.status(400).json({
+        status: 400,
+        reason: "TYPE_NOT_FOUND",
+      });
+    }
+
+    if (!start_date) {
+      return res.status(400).json({
+        status: 400,
+        reason: "START_DATE_NOT_FOUND",
+      });
+    }
+
+    if (!end_date) {
+      return res.status(400).json({
+        status: 400,
+        reason: "END_DATE_NOT_FOUND",
+      });
+    }
+
+    if (!detail) {
+      return res.status(400).json({
+        status: 400,
+        reason: "DETAIL_NOT_FOUND",
+      });
+    }
+
+    try {
+      const campaing = await this.commerceApplication.assingCampaing(
+        id_branch_office,
+        type,
+        start_date,
+        end_date,
+        detail
+      );
+
+      return res.status(201).json({
+        status: 201,
+        campaing,
       });
     } catch (error) {
       return handlerError(error, 500, res);
