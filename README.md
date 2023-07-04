@@ -1,2 +1,3 @@
-# leal-prueba-tecnica
-prueba tecnica empresa leal
+# Leal - Vacante Desarrollador NodeJS Senior
+### Autor: Daniel Mateus Ovalle
+

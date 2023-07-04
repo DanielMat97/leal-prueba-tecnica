@@ -1,5 +1,5 @@
 import express from "express";
-import { HealthController } from "../controllers/health/health.controller";
+import { HealthController } from "../controllers/health.controller";
 
 const healthController = new HealthController();
 const healthRoute = express.Router();

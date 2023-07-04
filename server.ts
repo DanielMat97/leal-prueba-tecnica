@@ -6,7 +6,7 @@ import helmet from "helmet";
 
 import { ENVIRONMENTS } from "./config/index.config";
 import { indexRoutes } from "./src/infraestructure/http/routes/index.route";
-import { dbConnection } from ".//config/db.config";
+import { dbConnection } from "./config/db.config";
 
 const stage = "dev";
 
