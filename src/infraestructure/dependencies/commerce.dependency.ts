@@ -5,4 +5,4 @@ import { CommerceController } from "../http/controllers/commerce.controller";
 const commerceApplication = new CommerceApplication(CommerceModel);
 const commerceController = new CommerceController(commerceApplication);
 
-export { commerceController };
+export { commerceController, commerceApplication };

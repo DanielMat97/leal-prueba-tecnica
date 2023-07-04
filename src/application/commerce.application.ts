@@ -1,6 +1,5 @@
 import { ReturnModelType } from "@typegoose/typegoose";
 import { Commerce } from "src/infraestructure/database/models/commerce.model";
-import { Rules } from "src/infraestructure/database/models/rules.model";
 
 export class CommerceApplication {
   private CommerceModel;
@@ -37,9 +36,7 @@ export class CommerceApplication {
   }
 
   async findBranchOfficeById(_id: string) {
-    return await this.CommerceModel.findOne({ "branchOffice._id": _id }).select(
-      "branchOffice"
-    );
+    return await this.CommerceModel.findOne({ "branchOffice._id": _id });
   }
 
   async assingCampaing(

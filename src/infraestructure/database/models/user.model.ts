@@ -9,17 +9,17 @@ export class User {
   @prop({ required: true, trim: true })
   name: string;
 
-  @prop({ default: null, required: false, type: () => LealPoints })
-  leal_points: LealPoints | null;
+  @prop({ required: false, type: () => LealPoints })
+  leal_points: LealPoints[];
 
-  @prop({ default: null, required: false, type: () => CashBack })
-  cashback: CashBack | null;
+  @prop({ required: false, type: () => CashBack, default: { total: 0 } })
+  cashback: CashBack;
 
-  @prop({ default: null, required: false, type: () => [LealPointsHistory] })
-  leal_points_history: LealPointsHistory[] | null;
+  @prop({ required: false, type: () => LealPointsHistory })
+  leal_points_history: LealPointsHistory[];
 
-  @prop({ default: null, required: false, type: () => [CashBackHistory] })
-  cashback_history: CashBackHistory[] | null;
+  @prop({ required: false, type: () => CashBackHistory })
+  cashback_history: CashBackHistory[];
 }
 
 const schemaOptions = {

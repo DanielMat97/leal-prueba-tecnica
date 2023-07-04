@@ -1,5 +1,10 @@
 import { prop, getModelForClass } from "@typegoose/typegoose";
 
+interface DetailInterface {
+  type: string;
+  value: number;
+}
+
 export class Rules {
   @prop({ required: true })
   id_campaing: string;
@@ -14,7 +19,7 @@ export class Rules {
   end_date: Date;
 
   @prop({ required: true })
-  detail: object;
+  detail: DetailInterface;
 }
 
 const schemaOptions = {

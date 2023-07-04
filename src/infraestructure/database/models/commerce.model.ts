@@ -7,7 +7,6 @@ export class Commerce {
 
   @prop({
     required: false,
-    default: null,
     type: () => BranchOffice,
   })
   branchOffice: BranchOffice[];

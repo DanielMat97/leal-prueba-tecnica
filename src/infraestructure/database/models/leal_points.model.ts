@@ -1,6 +1,9 @@
 import { prop, getModelForClass } from "@typegoose/typegoose";
 
 export class LealPoints {
+  @prop({ required: true })
+  id_commerce: string;
+
   @prop({ required: true, min: 0 })
   total: number;
 }

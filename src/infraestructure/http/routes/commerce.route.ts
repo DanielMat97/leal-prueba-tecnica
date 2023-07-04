@@ -17,10 +17,6 @@ commerceRoute
   .get(
     "/commerce/:id",
     commerceController.findCommerce.bind(commerceController)
-  )
-  .get(
-    "/commerce/branch/:id",
-    commerceController.findBranchOffice.bind(commerceController)
   );
 
 export { commerceRoute };

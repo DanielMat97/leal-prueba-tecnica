@@ -95,30 +95,6 @@ export class CommerceController {
     }
   }
 
-  async findBranchOffice(req: Request, res: Response) {
-    const { id } = req.params;
-
-    try {
-      const offices = await this.commerceApplication.findBranchOfficeById(id);
-
-      if (!offices) {
-        return res.status(404).json({
-          status: 404,
-          reason: "BRANCH_OFFICE_NOT_FOUND",
-        });
-      }
-
-      const branchOffice = offices.branchOffice.map((office) => office)[0];
-
-      return res.status(200).json({
-        status: 200,
-        branchOffice,
-      });
-    } catch (error) {
-      return handlerError(error, 500, res);
-    }
-  }
-
   async createCampaing(req: Request, res: Response) {
     const { id_branch_office, type, start_date, end_date, detail } = req.body;
 
