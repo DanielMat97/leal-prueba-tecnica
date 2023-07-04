@@ -52,7 +52,6 @@ export class UserController {
   }
 }
 
-
 const handlerError = (error: any, status: number, res: Response) => {
   console.error(error);
   return res.status(status).json({

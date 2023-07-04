@@ -2,13 +2,13 @@ import { prop, getModelForClass } from "@typegoose/typegoose";
 
 export class CashBackHistory {
   @prop({ required: true })
-  uuid_commerce: string;
+  id_commerce: string;
 
   @prop({ required: true })
-  uuid_branch_office: string;
+  id_branch_office: string;
 
   @prop({ required: true })
-  uuid_campaign: string;
+  id_campaign: string;
 
   @prop({ required: true })
   sign: boolean;
