@@ -29,6 +29,13 @@ app.listen(ENVIRONMENTS.SERVER.PORT, async () => {
     indexRoutes
   );
 
+  app.get("*", function (_, res) {
+    res.status(404).json({
+      status: 404,
+      reason: "ROUTE_NOT_FOUND",
+    });
+  });
+
   await dbConnection.connect();
 
   console.log("Server Ready 🔥.");

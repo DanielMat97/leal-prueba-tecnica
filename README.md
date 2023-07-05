@@ -23,3 +23,13 @@ npm run start:dev
 ## Documentacion
 
 http://localhost:3000/leal/v1/docs/
+
+## Pruebas unitarias
+
+´´´
+npm run test
+´´´
+
+### NOTA:
+
+coverage branch funcs and lines up 80%
