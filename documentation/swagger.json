@@ -1,32 +1,43 @@
 {
   "openapi": "3.0.3",
   "info": {
+    "version": "1.0.0",
     "title": "Leal Backend 1.0",
     "description": "Prueba tecnica de Leal para vacante de desarrollador senior nodejs, Postulante: Daniel Mateus Ovalle",
     "contact": {
       "email": "dmateus17.dm@gmail.com",
       "telephone": "+57 316 698 9045",
       "linkedin": "https://www.linkedin.com/in/daniel-mateus-ovalle-7a53bb166/"
-    },
-    "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-    },
-    "version": "1.0.0"
+    }
   },
   "servers": [
     {
       "url": "http://localhost:3000/leal/v1"
     }
   ],
+  "host": "http://localhost:3000",
+  "basePath": "/leal/v1",
+  "schemes": ["http"],
   "tags": [
     {
       "name": "Health",
       "description": "Verificar estado de servidor"
+    },
+    {
+      "name": "Users",
+      "description": "Endpoints con funciones de usuarios"
+    },
+    {
+      "name": "Commerces",
+      "description": "Endpoints con funciones de comercios"
+    },
+    {
+      "name": "Swagger",
+      "description": "Enpoint para ver la documentacion en swagger"
     }
   ],
   "paths": {
-    "/helth": {
+    "/health": {
       "get": {
         "tags": ["Health"],
         "summary": "Verificar estado de servidor",
@@ -48,23 +59,779 @@
           }
         }
       }
+    },
+    "/user": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "create user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": ["name"]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{userId}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "user find by id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/purchase": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "user purchase",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_branch_office": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "description": "id user",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id_branch_office": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                }
+              },
+              "required": ["id_branch_office", "value"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPurchase"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BranchNotFound"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthorizationWrong"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/commerce": {
+      "post": {
+        "tags": ["Commerces"],
+        "summary": "create commerce",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": ["name"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommerceResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Commerces"],
+        "summary": "get all commerce",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllCommerceResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/commerce/{commerceId}": {
+      "get": {
+        "tags": ["Commerces"],
+        "summary": "commerce fing by id",
+        "parameters": [
+          {
+            "name": "commerceId",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommerceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommerceNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/commerce/branch": {
+      "post": {
+        "tags": ["Commerces"],
+        "summary": "create branch office",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_commerce": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id_commerce": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": ["id_commerce", "name"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommerceResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/commerce/branch/campaing": {
+      "post": {
+        "tags": ["Commerces"],
+        "summary": "create campaing",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_branch_office": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "LEAL_POINTS OR CAMPAING"
+                  },
+                  "start_date": {
+                    "type": "string",
+                    "example": "2023-05-12T00:00:00.000Z"
+                  },
+                  "end_date": {
+                    "type": "string",
+                    "example": "2023-05-12T00:00:00.000Z"
+                  },
+                  "detail": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "example": "bonds OR multipliear"
+                      },
+                      "start_date": {
+                        "type": "number",
+                        "example": "15"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id_branch_office": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": ["LEAL_POINTS", "CASHBACK"]
+                },
+                "start_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "end_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "detail": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": ["bonds", "multiplier"]
+                    },
+                    "value": {
+                      "type": "number"
+                    }
+                  },
+                  "required": ["type", "value"]
+                }
+              },
+              "required": [
+                "id_branch_office",
+                "type",
+                "start_date",
+                "end_date",
+                "detail"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommerceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BranchNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/docs": {
+      "get": {
+        "tags": ["Swagger"],
+        "summary": "swagger",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
       "HealthSchema": {
         "type": "object",
-        "required": ["status", "uptime"],
         "properties": {
           "status": {
             "type": "integer",
-            "format": "int32",
             "example": 200
           },
           "uptime": {
             "type": "integer",
-            "format": "int64",
-            "example": 1688107048678
+            "example": 123123123
+          }
+        }
+      },
+      "CreateUserResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 201
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "daniel"
+          },
+          "cashback": {
+            "$ref": "#/components/schemas/Cashback"
+          },
+          "_id": {
+            "type": "string",
+            "example": "64a4e73fc9ef993e8d88d071"
+          },
+          "leal_points": {
+            "type": "array",
+            "items": {}
+          },
+          "leal_points_history": {
+            "type": "array",
+            "items": {}
+          },
+          "cashback_history": {
+            "type": "array",
+            "items": {}
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-07-05T03:45:03.359Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-07-05T03:45:03.359Z"
+          },
+          "__v": {
+            "type": "integer",
+            "example": 0
+          }
+        }
+      },
+      "Cashback": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "example": 0
+          },
+          "_id": {
+            "type": "string",
+            "example": "64a4e73fc9ef993e8d88d070"
+          }
+        }
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 200
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      },
+      "UserNotFound": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 404
+          },
+          "reason": {
+            "type": "string",
+            "example": "USER_NOT_FOUND"
+          }
+        }
+      },
+      "UserPurchase": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 200
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      },
+      "CommerceResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 201
+          },
+          "commerce": {
+            "$ref": "#/components/schemas/Commerce"
+          }
+        }
+      },
+      "GetAllCommerceResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 201
+          },
+          "commerce": {
+            "type": "array",
+            "$ref": "#/components/schemas/Commerce"
+          }
+        }
+      },
+      "Commerce": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Apple INC"
+          },
+          "_id": {
+            "type": "string",
+            "example": "64a4f7664285658f5af83783"
+          },
+          "branchOffice": {
+            "type": "array",
+            "items": {}
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-07-05T04:53:58.266Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-07-05T04:53:58.266Z"
+          },
+          "__v": {
+            "type": "integer",
+            "example": 0
+          }
+        }
+      },
+      "CommerceNotFound": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 400
+          },
+          "reason": {
+            "type": "string",
+            "example": "COMMERCE_NOT_FOUND"
+          }
+        }
+      },
+      "BadRequest": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 400
+          },
+          "reason": {
+            "type": "string",
+            "example": "NAME_NOT_FOUND"
+          }
+        }
+      },
+      "BranchNotFound": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 400
+          },
+          "reason": {
+            "type": "string",
+            "example": "BRANCH_NOT_FOUND"
+          }
+        }
+      },
+      "AuthorizationWrong": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 401
+          },
+          "reason": {
+            "type": "string",
+            "example": "AUTHORIZATION_NOT_FOUND"
+          }
+        }
+      },
+      "InternalServerError": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 500
+          },
+          "reason": {
+            "type": "string",
+            "example": "INTERNAL_SERVER_ERROR"
           }
         }
       }

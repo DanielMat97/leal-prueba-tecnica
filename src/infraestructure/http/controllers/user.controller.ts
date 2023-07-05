@@ -126,13 +126,6 @@ export class UserController {
 
     const campaing: Campaing = branch[0].campaing;
 
-    console.log("START DATE: ", moment() >= moment(campaing.rules.start_date));
-    console.log("END DATE: ", moment() <= moment(campaing.rules.start_date));
-    console.log(
-      moment() >= moment(campaing.rules.start_date) &&
-        moment() <= moment(campaing.rules.end_date)
-    );
-
     if (
       !(
         moment() >= moment(campaing.rules.start_date) &&

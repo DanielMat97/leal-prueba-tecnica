@@ -55,7 +55,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"carlos\"\n}",
+					"raw": "{\n    \"name\": \"lorein\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -84,7 +84,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/leal/v1/user/64a43b276ba03d06dbc195f7",
+					"raw": "http://localhost:3000/leal/v1/user/64a4e73fc9ef993e8d88d071",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -94,7 +94,7 @@
 						"leal",
 						"v1",
 						"user",
-						"64a43b276ba03d06dbc195f7"
+						"64a4e73fc9ef993e8d88d071"
 					]
 				}
 			},
@@ -250,13 +250,13 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "64a43b276ba03d06dbc195f7",
+						"value": "64a4e73fc9ef993e8d88d071",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id_branch_office\": \"64a43de081b89ba2f3455faf\",\n    \"value\": 20000\n}",
+					"raw": "{\n    \"id_branch_office\": \"64a4e7bec9ef993e8d88d098\",\n    \"value\": 20000\n}",
 					"options": {
 						"raw": {
 							"language": "json"

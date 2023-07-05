@@ -13,10 +13,6 @@ const offersCalculate = (
     case "bonds":
       const percent = (Number(100) + Number(value)) / 100; // 1.15
       const points = Math.floor(valuePurchase / 1000); // 20
-      console.log(
-        `points: ${points} * percent: ${percent} = ${points * percent}`
-      );
-
       return points * percent;
     case "multiplier":
       return Math.floor(valuePurchase / 1000) * value;
