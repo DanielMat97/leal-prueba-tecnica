@@ -1,42 +1,30 @@
-import { ReturnModelType } from "@typegoose/typegoose";
-import { Commerce } from "src/infraestructure/database/models/commerce.model";
+import { CommerceRepository } from "src/domain/commerce.repository";
 
 export class CommerceApplication {
-  private CommerceModel;
+  private commerceRepository;
 
-  constructor(_commerceModel: ReturnModelType<typeof Commerce>) {
-    this.CommerceModel = _commerceModel;
+  constructor(_commerceRepository: CommerceRepository) {
+    this.commerceRepository = _commerceRepository;
   }
 
   async createCommerce(name: string) {
-    return await this.CommerceModel.create({ name });
+    return await this.commerceRepository.create(name);
   }
 
   async findCommerceById(id: string) {
-    return await this.CommerceModel.findById(id);
+    return await this.commerceRepository.findById(id);
   }
 
   async getAll() {
-    return await this.CommerceModel.find().populate("branchOffice");
+    return await this.commerceRepository.find();
   }
 
   async createBranch(id_commerce: string, name: string) {
-    return await this.CommerceModel.findByIdAndUpdate(
-      id_commerce,
-      {
-        $push: {
-          branchOffice: {
-            id_commerce,
-            name,
-          },
-        },
-      },
-      { new: true }
-    );
+    return await this.commerceRepository.createBranch(id_commerce, name);
   }
 
   async findBranchOfficeById(_id: string) {
-    return await this.CommerceModel.findOne({ "branchOffice._id": _id });
+    return await this.commerceRepository.findBranchById(_id);
   }
 
   async assingCampaing(
@@ -56,18 +44,6 @@ export class CommerceApplication {
       },
     };
 
-    return await this.CommerceModel.findOneAndUpdate(
-      {
-        "branchOffice._id": _id,
-      },
-      {
-        $set: {
-          "branchOffice.$.campaing": campaing,
-        },
-      },
-      {
-        new: true,
-      }
-    );
+    return await this.commerceRepository.assingCampaing(_id, campaing);
   }
 }
