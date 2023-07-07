@@ -33,3 +33,4 @@ npm run test
 ### NOTA:
 
 coverage branch funcs and lines up 80%
+como plus utilice conventional git commit y he hice una rama y un pull request para mostrar un correcto git flow, muy importante e infravalorado.
