@@ -1,11 +1,7 @@
 import { prop, getModelForClass } from "@typegoose/typegoose";
+import { DetailInterface, RulesEntity } from "src/domain/entities/rules.entity";
 
-interface DetailInterface {
-  type: string;
-  value: number;
-}
-
-export class Rules {
+export class Rules implements RulesEntity {
   @prop({ required: true })
   id_campaing: string;
 

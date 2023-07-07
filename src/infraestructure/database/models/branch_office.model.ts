@@ -1,7 +1,8 @@
 import { prop, getModelForClass } from "@typegoose/typegoose";
 import { Campaing } from "./campaing.model";
+import { BranchOfficeEntity } from "src/domain/entities/branch_office.entity";
 
-export class BranchOffice {
+export class BranchOffice implements BranchOfficeEntity {
   @prop({ required: true })
   id_commerce: string;
 

@@ -1,6 +1,7 @@
 import { prop, getModelForClass } from "@typegoose/typegoose";
+import { LealPointsHistoryEntity } from "src/domain/entities/leal_points_history.entity";
 
-export class LealPointsHistory {
+export class LealPointsHistory implements LealPointsHistoryEntity {
   @prop({ required: true })
   id_commerce: string;
 

@@ -4,8 +4,9 @@ import { LealPoints } from "./leal_points.model";
 import { CashBack } from "./cashback.model";
 import { LealPointsHistory } from "./leal_points_history.model";
 import { CashBackHistory } from "./cashback_history.model";
+import { UserEntity } from "src/domain/entities/user.entity";
 
-export class User {
+export class User implements UserEntity {
   @prop({ required: true, trim: true })
   name: string;
 
@@ -19,7 +20,7 @@ export class User {
   leal_points_history: LealPointsHistory[];
 
   @prop({ required: false, type: () => CashBackHistory })
-  cashback_history: CashBackHistory[];
+  cashback_history: CashBack[];
 }
 
 const schemaOptions = {

@@ -1,6 +1,7 @@
 import { prop, getModelForClass } from "@typegoose/typegoose";
+import { CashBackHistoryEntity } from "src/domain/entities/cashback_history.entity";
 
-export class CashBackHistory {
+export class CashBackHistory implements CashBackHistoryEntity {
   @prop({ required: true })
   id_commerce: string;
 
