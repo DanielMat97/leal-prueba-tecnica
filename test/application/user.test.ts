@@ -78,4 +78,20 @@ describe("UserApplication", () => {
     );
     expect(user).toBe(null);
   });
+
+  test("assingCashback should call userRepository.assingCashback with the provided user null", async () => {
+    const id = "1234";
+    const value = 20000;
+    const id_commerce = "1234";
+    const id_branch_office = "1234";
+    const id_campaign = "1234";
+    const user = await userApplication.assingCashback(
+      id,
+      value,
+      id_commerce,
+      id_branch_office,
+      id_campaign
+    );
+    expect(user).toBe(userMock);
+  });
 });
